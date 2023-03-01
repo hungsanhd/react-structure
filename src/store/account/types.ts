@@ -32,6 +32,7 @@ interface LoginSuccess {
 	payload: {
 		token: string;
 		refreshToken: string;
+		statusCode: string;
 	};
 }
 
@@ -39,6 +40,7 @@ interface LoginFailure {
 	type: typeof LOGIN_FAILURE;
 	payload: {
 		error: string;
+		statusCode: string;
 	};
 }
 
@@ -89,6 +91,7 @@ export interface AccountState {
 	error: string | null;
 	token: string | null;
 	refreshToken: string | null;
+	statusCode: string | null;
 }
 
 export type AccountActionTypes =

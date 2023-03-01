@@ -22,7 +22,7 @@ export const login = (email: string, password: string) => {
 		} catch (error: any) {
 			dispatch({
 				type: LOGIN_FAILURE,
-				payload: {error: error.response.data.message}
+				payload: {error: error.response.data.message, statusCode: error.response.status}
 			});
 		}
 	}

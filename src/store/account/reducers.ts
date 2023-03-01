@@ -5,7 +5,8 @@ const initialState: AccountState = {
 	loading: false,
 	error: null,
 	token: null,
-	refreshToken: null
+	refreshToken: null,
+	statusCode: null
 }
 const accountReducers = (
 	state: AccountState = initialState,
@@ -16,10 +17,10 @@ const accountReducers = (
 			return { ...state, loading: true };
 		}
 		case LOGIN_SUCCESS: {
-			return { ...state, loading: false, error: null, token: action.payload.token, refreshToken: action.payload.refreshToken };
+			return { ...state, loading: false, error: null, statusCode: action.payload.statusCode, token: action.payload.token, refreshToken: action.payload.refreshToken };
 		}
 		case LOGIN_FAILURE: {
-			return { ...state, loading: false, token: null, refreshToken: null, error: action.payload.error };
+			return { ...state, loading: false, token: null, refreshToken: null, statusCode: action.payload.statusCode, error: action.payload.error };
 		}
 		case LOG_OUT: {
 			return { ...state, user: null, token: null, refreshToken: null, error: null };

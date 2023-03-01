@@ -17,6 +17,7 @@ export const Login = () => {
 	const token = useSelector<AppState>((state) => state.account.token);
 
 	const error = useSelector<AppState>((state) => state.account.error);
+	const statusCode = useSelector<AppState>((state) => state.account.statusCode);
 
 	const { email, password } = inputs;
 
@@ -63,7 +64,7 @@ export const Login = () => {
 													type="email"
 													className={
 														"form-control form-control-user " +
-														(error !== null
+														(error !== null && statusCode === 409
 															? email
 																? "is-invalid"
 																: submitted && !email
@@ -106,17 +107,41 @@ export const Login = () => {
 													type="password"
 													className={
 														"form-control form-control-user " +
-														(submitted && !password ? "is-invalid" : "")
+														(error !== null && statusCode === 400
+															? password
+																? "is-invalid"
+																: submitted && !password
+																	? "is-invalid"
+																	: ""
+															: submitted && !password
+																? "is-invalid"
+																: "")
 													}
 													id="exampleInputPassword"
 													onChange={handleChange}
 													placeholder="Password"
 													name="password"
 												/>
-												{submitted && !password && (
-													<span className="invalid-feedback">
-														Password is required
-													</span>
+												{error !== null ? (
+													password ? (
+														<span className="invalid-feedback">
+															{error?.toString()}
+														</span>
+													) : (
+														submitted &&
+														!password && (
+															<span className="invalid-feedback">
+																Password is required
+															</span>
+														)
+													)
+												) : (
+													submitted &&
+													!email && (
+														<span className="invalid-feedback">
+															Password is required
+														</span>
+													)
 												)}
 											</div>
 											<div className="form-group">
